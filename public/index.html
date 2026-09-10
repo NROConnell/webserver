@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="{{THEME_CLASS}}">
+    <h1>Welcome to Nolan!</h1>
+    <p>Connected via local network.</p>
+    <p>
+    <h3>Total Server Vistits: <span id="vistCount">{{COUNT}}</span></h3>
+    </p>
+    <p>Your random fact is: {{FACT}}</p>
+    <p>Random cat fact: {{CAT_FACT}}</p>
+    <p>Random sea life fact: {{SEA_LIFE_FACT}}</p>
+    </p>
+    <img src="./ocean.jpg" alt="">
+
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/projects">Projects</a> |
+        <a href="/about">About</a> |
+        <a href="/?theme=light">Lightmode</a> |
+        <a href="/?theme=dark">Darkmode</a>
+    </nav>
+</body>
+
+<script src="/script.js"></script>
+
+</html>

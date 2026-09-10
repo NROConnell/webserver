@@ -1,0 +1,13 @@
+body.light-mode {
+    background-color: white;
+    color: #d87700;
+}
+
+body.dark-mode {
+    background-color: rgb(2, 18, 50);
+    color: white;
+}
+
+h1 {
+    color: blue
+}
