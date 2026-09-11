@@ -56,6 +56,15 @@ http.createServer((req, res) => {
         return res.end(`<h1>Roll: ${roll}</h1>`);
     }
 
+    if (reqPath === '/api/stats') {
+        const stats = {
+            visitorCount: visitorCount,
+            uptimeSeconds: process.uptime(),
+        };
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify(stats));
+    }
+
     // Route Normalization: Map root to index.html & append .html to extensionless routes
     let normalizedPath = reqPath === '/' ? '/index.html' : reqPath;
     if (!path.extname(normalizedPath)) {
@@ -107,6 +116,6 @@ http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': contentType });
         res.end(finalContent);
     });
-}).listen(PORT, '0.0.0.0', () => {
-    console.log(`Server live! Listening on port http://localhost:${PORT}...`);
-});
+}).listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+
