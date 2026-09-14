@@ -7,6 +7,8 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 
 let visitorCount = 0;
 
+const messages = ["Server is running"];
+
 const adviceList = [
     "Keep your code DRY (Don't Repeat Yourself).",
     "Use meaningful variable names.",
@@ -103,10 +105,21 @@ http.createServer((req, res) => {
             // Server-Driven Theme Handling
             const theme = parsedUrl.searchParams.get('theme') === 'dark' ? 'dark-mode' : 'light-mode';
 
+            const newMsg = parsedUrl.searchParams.get('msg');
+            if (newMsg) {
+                messages.push(newMsg);
+                res.writeHead(302, { 'Location': '/shoutbox' });
+                return res.end();
+            }
+
+            //Convert messages array to HTML list items
+            const messageListHtml = messages.map(msg => `<li>${msg}</li>`).join('');
+
             // Replace template placeholders in HTML files
             finalContent = content.toString()
                 .replace('{{COUNT}}', String(visitorCount))
                 .replace('{{THEME_CLASS}}', theme)
+                .replace('{{MESSAGES}}', messageListHtml)
                 .replace('{{FACT}}', randomAdvice)
                 .replace('{{CAT_FACT}}', randomCatFact)
                 .replace('{{SEA_LIFE_FACT}}', randomSeaLifeFact);
