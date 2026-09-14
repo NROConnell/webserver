@@ -1,139 +1,407 @@
-body.light-mode {
-    background-color: white;
-    color: #d87700;
-}
-
-body.dark-mode {
-    background-color: rgb(2, 18, 50);
-    color: white;
-}
-
-h1 {
-    color: blue
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: white;
+    font-family: Arial, Helvetica, sans-serif;
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 50px 20px 30px;
     text-align: center;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Title */
+
+/* ================================
+   DARK MODE
+================================ */
+
+body.dark-mode {
+    background: #0b1020;
+    color: #f5f7ff;
+}
+
+body.dark-mode::before {
+    content: "";
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 400px;
+    background: #4f46e5;
+    opacity: 0.12;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* ================================
+   LIGHT MODE
+================================ */
+
+body.light-mode {
+    background: #f5f7fb;
+    color: #172033;
+}
+
+body.light-mode::before {
+    content: "";
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 400px;
+    background: #6366f1;
+    opacity: 0.08;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* ================================
+   HEADINGS
+================================ */
+
 h1 {
-    font-size: 40px;
-    margin-bottom: 25px;
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 15px;
 }
 
-/* Shout form */
+h3 {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+body.dark-mode h1 {
+    background: linear-gradient(90deg, #ffffff, #a5b4fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+body.light-mode h1 {
+    color: #20243a;
+}
+
+
+/* ================================
+   TEXT
+================================ */
+
+p {
+    max-width: 700px;
+    margin: 12px auto;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+body.dark-mode p {
+    color: #b9c0d4;
+}
+
+body.light-mode p {
+    color: #596174;
+}
+
+
+/* ================================
+   IMAGES
+================================ */
+
+img {
+    display: block;
+    width: min(700px, 90%);
+    max-height: 400px;
+    object-fit: cover;
+    margin: 30px auto;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ================================
+   PROJECTS
+================================ */
+
+ul {
+    list-style: none;
+}
+
+body>ul {
+    width: min(700px, 90%);
+    margin: 30px auto;
+    text-align: left;
+}
+
+body>ul li {
+    padding: 20px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    line-height: 1.6;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-mode>ul li {
+    background: #151c31;
+    border: 1px solid #27304a;
+}
+
+body.light-mode>ul li {
+    background: white;
+    border: 1px solid #e4e7ef;
+    box-shadow: 0 8px 25px rgba(30, 40, 70, 0.06);
+}
+
+body>ul li:hover {
+    transform: translateY(-3px);
+}
+
+code {
+    padding: 3px 7px;
+    border-radius: 5px;
+    background: #6366f1;
+    color: white;
+    font-size: 14px;
+}
+
+
+/* ================================
+   SHOUTBOX FORM
+================================ */
+
 .shout-form {
+    width: min(700px, 90%);
     display: flex;
-    justify-content: center;
     gap: 10px;
-    margin-bottom: 25px;
+    margin: 30px auto 20px;
 }
 
 .shout-form input {
-    width: 400px;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    flex: 1;
+    min-width: 0;
+    padding: 15px 17px;
+    border: 1px solid #303951;
+    border-radius: 12px;
     outline: none;
+    font-size: 16px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-mode .shout-form input {
+    background: #151c31;
+    color: white;
+}
+
+body.light-mode .shout-form input {
+    background: white;
+    color: #172033;
+    border-color: #dce1eb;
+}
+
+.shout-form input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .shout-form button {
-    padding: 14px 22px;
+    padding: 15px 24px;
     border: none;
-    border-radius: 8px;
-    background: #6c4cff;
+    border-radius: 12px;
+    background: #6366f1;
     color: white;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .shout-form button:hover {
-    background: #5638d6;
+    background: #4f46e5;
+    transform: translateY(-2px);
 }
 
-/* Shoutbox */
+.shout-form button:active {
+    transform: translateY(0);
+}
+
+
+/* ================================
+   SHOUTBOX
+================================ */
+
 .shoutbox {
-    width: 90%;
-    max-width: 700px;
-    height: 400px;
-    margin: auto;
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 12px;
+    width: min(700px, 90%);
+    height: 420px;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 18px;
     text-align: left;
     overflow-y: auto;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    scrollbar-width: thin;
 }
 
-/* Message list */
-.shoutbox ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
+body.dark-mode .shoutbox {
+    background: #11182b;
+    border: 1px solid #27304a;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
 }
+
+body.light-mode .shoutbox {
+    background: white;
+    border: 1px solid #e1e5ed;
+    box-shadow: 0 15px 40px rgba(30, 40, 70, 0.08);
+}
+
 
 /* Messages */
-.shoutbox li {
-    background: #292929;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    word-wrap: break-word;
+
+.shoutbox ul {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
 }
 
-/* Navigation */
-nav {
-    width: 90%;
-    max-width: 700px;
-    margin: 25px auto 0;
-    padding: 15px;
-    background: #1e1e1e;
+.shoutbox li {
+    padding: 15px 17px;
+    border-radius: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    animation: messageAppear 0.25s ease;
+}
+
+body.dark-mode .shoutbox li {
+    background: #1a233b;
+    border: 1px solid #293452;
+    color: #e9ecf5;
+}
+
+body.light-mode .shoutbox li {
+    background: #f4f6fa;
+    border: 1px solid #e5e8ef;
+    color: #252b3b;
+}
+
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================================
+   SCROLLBAR
+================================ */
+
+.shoutbox::-webkit-scrollbar {
+    width: 8px;
+}
+
+.shoutbox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.shoutbox::-webkit-scrollbar-thumb {
+    background: #6366f1;
     border-radius: 10px;
 }
 
+
+/* ================================
+   NAVIGATION
+================================ */
+
+nav {
+    width: min(850px, 95%);
+    margin: 35px auto 0;
+    padding: 14px 18px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+body.dark-mode nav {
+    background: rgba(17, 24, 43, 0.85);
+    border: 1px solid #27304a;
+}
+
+body.light-mode nav {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e1e5ed;
+    box-shadow: 0 8px 25px rgba(30, 40, 70, 0.06);
+}
+
 nav a {
-    color: #b7a9ff;
+    display: inline-block;
+    padding: 9px 12px;
+    color: #818cf8;
     text-decoration: none;
-    margin: 0 8px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 nav a:hover {
+    background: #6366f1;
     color: white;
 }
 
-/* Mobile */
+
+/* ================================
+   VISITOR COUNT
+================================ */
+
+#vistCount {
+    color: #818cf8;
+    font-weight: bold;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
 @media (max-width: 600px) {
+
     body {
-        padding: 25px 10px;
+        padding: 30px 12px 20px;
     }
 
     h1 {
-        font-size: 32px;
+        font-size: 34px;
+        letter-spacing: -1px;
+    }
+
+    p {
+        font-size: 15px;
     }
 
     .shout-form {
+        width: 100%;
         flex-direction: column;
     }
 
-    .shout-form input {
-        width: 100%;
-    }
-
+    .shout-form input,
     .shout-form button {
         width: 100%;
     }
@@ -143,12 +411,21 @@ nav a:hover {
         height: 350px;
     }
 
-    nav {
+    body>ul {
         width: 100%;
     }
 
+    img {
+        width: 100%;
+        border-radius: 14px;
+    }
+
+    nav {
+        width: 100%;
+        padding: 12px;
+    }
+
     nav a {
-        display: inline-block;
-        margin: 5px;
+        font-size: 13px;
     }
 }
