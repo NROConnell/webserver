@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Shoutbox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="{{THEME_CLASS}}">
+    <h1>Public Shoutbox</h1>
+    <form action="/shoutbox" method="GET" class="shout-form">
+        <input type="text" name="msg" placeholder="Type a message..." required>
+        <button type="submit">Shout!</button>
+    </form>
+
+    <div class="shoutbox">
+        <ul>
+            {{MESSAGES}}
+        </ul>
+    </div>
+
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/projects">Projects</a> |
+        <a href="/about">About</a> |
+        <a href="/?theme=light">Lightmode</a> |
+        <a href="/?theme=dark">Darkmode</a> |
+        <a href="/shoutbox">ShoutBox</a>
+    </nav>
+
+</body>
+
+</html>
