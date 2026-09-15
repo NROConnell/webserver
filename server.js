@@ -1,8 +1,10 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const mime = require('mime-types');
 
 const PORT = process.env.PORT || 3000;
+
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
 let visitorCount = 0;
@@ -33,22 +35,42 @@ const seaLifeFacts = [
     "Some species of fish can change their gender."
 ];
 
-const MIME_TYPES = {
-    '.html': 'text/html',
-    '.css': 'text/css',
-    '.js': 'text/javascript',
-    '.png': 'image/png',
-    '.jpg': 'image/jpeg',
-    '.gif': 'image/gif',
-    '.svg': 'image/svg+xml',
-    '.mp4': 'video/mp4',
-    '.json': 'application/json',
-    '.ico': 'image/x-icon'
-};
+// const MIME_TYPES = {
+//     '.html': 'text/html',
+//     '.css': 'text/css',
+//     '.js': 'text/javascript',
+//     '.png': 'image/png',
+//     '.jpg': 'image/jpeg',
+//     '.gif': 'image/gif',
+//     '.svg': 'image/svg+xml',
+//     '.mp4': 'video/mp4',
+//     '.json': 'application/json',
+//     '.ico': 'image/x-icon'
+// };
 
 http.createServer((req, res) => {
     const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const reqPath = parsedUrl.pathname;
+
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const logLine =
+        `[${new Date().toISOString()}] IP: ${clientIp} | Method: ${req.method} | Path: ${reqPath}\n`;
+
+    fs.appendFile(path.join(__dirname, 'server.log'), logLine, (err) => {
+        if (err) console.error('Log write failed:', err);
+
+    });
+
+    if (reqPath === '/healthz') {
+        const health = {
+            status: 'ok',
+            timestamp: new Date().toISOString(),
+            uptimeSeconds: Math.floor(process.uptime()),
+            memoryMB: Math.round(process.memoryUsage().heapUsed / 1024 / 1024)
+        };
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify(health));
+    }
 
     if (reqPath === '/roll') {
         console.log("/roll route accessed");
@@ -75,7 +97,7 @@ http.createServer((req, res) => {
 
     const filePath = path.join(PUBLIC_DIR, normalizedPath);
     const ext = path.extname(filePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'text/plain';
+    const contentType = mime.lookup(filePath) || 'text/plain';
 
     fs.readFile(filePath, (err, content) => {
         if (err) {
@@ -106,14 +128,24 @@ http.createServer((req, res) => {
             const theme = parsedUrl.searchParams.get('theme') === 'dark' ? 'dark-mode' : 'light-mode';
 
             const newMsg = parsedUrl.searchParams.get('msg');
+
+            const DATA_FILE = path.join(__dirname, 'messages.json');
+
+            function getSavedMessages() {
+                if (!fs.existsSync(DATA_FILE)) return ["Server booted up."];
+                return JSON.parse(fs.readFileSync(DATA_FILE));
+            }
+
             if (newMsg) {
+                const messages = getSavedMessages();
                 messages.push(newMsg);
+                fs.writeFileSync(DATA_FILE, JSON.stringify(messages, null, 2));
                 res.writeHead(302, { 'Location': '/shoutbox' });
                 return res.end();
             }
 
             //Convert messages array to HTML list items
-            const messageListHtml = messages.map(msg => `<li>${msg}</li>`).join('');
+            const messageListHtml = getSavedMessages().map(msg => `<li>${msg}</li>`).join('');
 
             // Replace template placeholders in HTML files
             finalContent = content.toString()
