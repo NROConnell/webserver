@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOLFLIX - Watch Movies & TV Shows</title>
+    <meta name="description" content="NOLFLIX - unlimited movies, TV shows, and more.">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Movie-poster wall used only in the first/hero section */
+        .hero {
+            background: #000 !important;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .poster-wall {
+            position: absolute;
+            inset: -12%;
+            z-index: -2;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 7px;
+            transform: rotate(-2deg) scale(1.08);
+        }
+
+        .poster {
+            min-width: 0;
+            min-height: 0;
+            background-image: url("./eximg.jpg");
+            background-size: 280% 280%;
+            background-repeat: no-repeat;
+            filter: brightness(.72) saturate(.9);
+            border-radius: 2px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .7);
+        }
+
+        .poster:nth-child(1) {
+            background-position: 0% 0%;
+            transform: rotate(-2deg);
+        }
+
+        .poster:nth-child(2) {
+            background-position: 50% 0%;
+            transform: rotate(2deg);
+        }
+
+        .poster:nth-child(3) {
+            background-position: 100% 0%;
+            transform: rotate(-1deg);
+        }
+
+        .poster:nth-child(4) {
+            background-position: 0% 45%;
+            transform: rotate(1deg);
+        }
+
+        .poster:nth-child(5) {
+            background-position: 50% 45%;
+            transform: rotate(-2deg);
+        }
+
+        .poster:nth-child(6) {
+            background-position: 100% 45%;
+            transform: rotate(2deg);
+        }
+
+        .poster:nth-child(7) {
+            background-position: 0% 100%;
+            transform: rotate(1deg);
+        }
+
+        .poster:nth-child(8) {
+            background-position: 50% 100%;
+            transform: rotate(-1deg);
+        }
+
+        .poster:nth-child(9) {
+            background-position: 100% 100%;
+            transform: rotate(2deg);
+        }
+
+        .poster:nth-child(10) {
+            background-position: 18% 18%;
+            transform: rotate(-2deg);
+        }
+
+        .poster:nth-child(11) {
+            background-position: 68% 18%;
+            transform: rotate(1deg);
+        }
+
+        .poster:nth-child(12) {
+            background-position: 18% 68%;
+            transform: rotate(2deg);
+        }
+
+        .poster:nth-child(13) {
+            background-position: 68% 68%;
+            transform: rotate(-1deg);
+        }
+
+        .poster:nth-child(14) {
+            background-position: 32% 32%;
+            transform: rotate(1deg);
+        }
+
+        .poster:nth-child(15) {
+            background-position: 82% 32%;
+            transform: rotate(-2deg);
+        }
+
+        .poster:nth-child(16) {
+            background-position: 32% 82%;
+            transform: rotate(2deg);
+        }
+
+        .poster:nth-child(17) {
+            background-position: 82% 82%;
+            transform: rotate(-1deg);
+        }
+
+        .poster:nth-child(18) {
+            background-position: 7% 55%;
+            transform: rotate(1deg);
+        }
+
+        .poster:nth-child(19) {
+            background-position: 55% 7%;
+            transform: rotate(-2deg);
+        }
+
+        .poster:nth-child(20) {
+            background-position: 93% 55%;
+            transform: rotate(2deg);
+        }
+
+        .poster:nth-child(21) {
+            background-position: 55% 93%;
+            transform: rotate(-1deg);
+        }
+
+        .poster:nth-child(22) {
+            background-position: 25% 55%;
+            transform: rotate(2deg);
+        }
+
+        .poster:nth-child(23) {
+            background-position: 75% 55%;
+            transform: rotate(-2deg);
+        }
+
+        .poster:nth-child(24) {
+            background-position: 55% 25%;
+            transform: rotate(1deg);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                linear-gradient(to bottom,
+                    rgba(0, 0, 0, .72) 0%,
+                    rgba(0, 0, 0, .28) 42%,
+                    rgba(0, 0, 0, .72) 78%,
+                    rgba(0, 0, 0, .98) 100%);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at center, transparent 15%, rgba(0, 0, 0, .45) 75%);
+            pointer-events: none;
+        }
+
+        .hero-content,
+        .navbar {
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 760px) {
+            .poster-wall {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(6, 1fr);
+                gap: 5px;
+                inset: -15%;
+                transform: rotate(-2deg) scale(1.12);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="hero">
+        <div class="poster-wall" aria-hidden="true">
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+            <div class="poster"></div>
+        </div>
+
+        <nav class="navbar">
+            <a class="logo" href="#">NOLFLIX</a>
+            <button class="sign-in" id="signInBtn">Sign In</button>
+        </nav>
+
+        <div class="hero-content">
+            <h1>Unlimited movies, TV<br>shows, and more.</h1>
+            <p class="hero-subtitle">Watch anywhere. Cancel anytime.</p>
+            <p class="hero-small">Ready to watch? Enter your email to create or restart your membership.</p>
+            <form class="email-form" id="heroForm">
+                <input type="email" placeholder="Email address" required aria-label="Email address">
+                <button type="submit">GET STARTED <span>›</span></button>
+            </form>
+            <p class="form-message" id="heroMessage"></p>
+        </div>
+    </header>
+
+    <main>
+        <section class="feature">
+            <div class="feature-copy">
+                <h2>Enjoy on your TV.</h2>
+                <p>Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+            </div>
+            <div class="media-frame tv-frame">
+                <img src="./eximg.jpg" alt="NOLFLIX entertainment preview">
+                <div class="screen-overlay">NOLFLIX</div>
+            </div>
+        </section>
+
+        <section class="feature reverse">
+            <div class="media-frame phone-frame">
+                <img src="./eximg.jpg" alt="NOLFLIX mobile viewing preview">
+                <div class="download-card">
+                    <strong>NOLFLIX</strong>
+                    <span>Downloading...</span>
+                    <b>↓</b>
+                </div>
+            </div>
+            <div class="feature-copy">
+                <h2>Download your shows<br>to watch offline.</h2>
+                <p>Save your favorites easily and always have something to watch.</p>
+            </div>
+        </section>
+
+        <section class="feature">
+            <div class="feature-copy">
+                <h2>Watch everywhere.</h2>
+                <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV without paying more.</p>
+            </div>
+            <div class="media-frame devices-frame">
+                <img src="./eximg.jpg" alt="NOLFLIX on multiple devices">
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq">
+                <button class="faq-question">What is NOLFLIX?<span>+</span></button>
+                <div class="faq-answer">NOLFLIX is a streaming service where you can watch movies, TV shows, and more on
+                    your favorite devices.</div>
+            </div>
+
+            <div class="faq">
+                <button class="faq-question">How much does NOLFLIX cost?<span>+</span></button>
+                <div class="faq-answer">Plans can be changed whenever you want. Choose the membership option that works
+                    best for you.</div>
+            </div>
+
+            <div class="faq">
+                <button class="faq-question">Where can I watch?<span>+</span></button>
+                <div class="faq-answer">You can watch NOLFLIX on TVs, phones, tablets, computers, game consoles, and
+                    other supported streaming devices.</div>
+            </div>
+
+            <div class="faq">
+                <button class="faq-question">How do I cancel?<span>+</span></button>
+                <div class="faq-answer">You can cancel your membership from your account settings at any time.</div>
+            </div>
+
+            <div class="faq">
+                <button class="faq-question">What can I watch on NOLFLIX?<span>+</span></button>
+                <div class="faq-answer">NOLFLIX offers movies, TV shows, documentaries, originals, and other
+                    entertainment.</div>
+            </div>
+
+            <p class="bottom-ready">Ready to watch? Enter your email to create or restart your membership.</p>
+            <form class="email-form bottom-form" id="bottomForm">
+                <input type="email" placeholder="Email address" required aria-label="Email address">
+                <button type="submit">GET STARTED <span>›</span></button>
+            </form>
+            <p class="form-message" id="bottomMessage"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p class="questions">Questions? Call 1-844-542-4813</p>
+        <div class="footer-links">
+            <div><a href="#">FAQ</a><a href="#">Investor Relations</a><a href="#">Ways to Watch</a><a href="#">Corporate
+                    Information</a><a href="#">NOLFLIX Originals</a></div>
+            <div><a href="#">Help Center</a><a href="#">Jobs</a><a href="#">Terms of Use</a><a href="#">Contact Us</a>
+            </div>
+            <div><a href="#">Account</a><a href="#">Redeem Gift Cards</a><a href="#">Privacy</a><a href="#">Speed
+                    Test</a></div>
+            <div><a href="#">Media Center</a><a href="#">Buy Gift Cards</a><a href="#">Cookie Preferences</a><a
+                    href="#">Legal Notices</a></div>
+        </div>
+        <button class="language">◎ &nbsp; English &nbsp;⌄</button>
+        <p class="country">NOLFLIX United States</p>
+    </footer>
+
+    <div class="modal" id="signInModal">
+        <div class="modal-box">
+            <button class="close" id="closeModal">&times;</button>
+            <h2>Sign In</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="Email or phone number" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="login-button">Sign In</button>
+                <p id="loginMessage"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

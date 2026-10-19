@@ -1,24 +1,185 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
-<body class="{{THEME_CLASS}}">
-    <h1>My Projects</h1>
-    <ul>
-        <li><strong>Node.js Server:</strong>Built without frameworks using core modules.</li>
-        <li><strong>Clean Router:</strong>Automatically resolves extentionless paths like <code>/projects</code>.</li>
-    </ul>
-
+<body>
     <nav>
-        <a href="/">Home</a> |
-        <a href="/projects?theme=light">Lightmode</a> |
-        <a href="/projects?theme=dark">Darkmode</a>
+        <a href="/">Home</a>
+        <a href="/projects">Projects</a>
+        <a href="/guestbook">Guestbook</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/space">Space</a>
     </nav>
+
+    <main>
+
+        <section class="projects-hero">
+
+            <div class="projects-label">
+                Portfolio
+            </div>
+
+            <h1>My Projects</h1>
+
+            <p>
+                A collection of projects, experiments, and applications
+                I've built while learning web development and programming.
+            </p>
+
+        </section>
+
+
+        <section class="project-grid">
+
+            <article class="project-card">
+
+                <div class="project-icon">
+                    💻
+                </div>
+
+                <h2>Express Server</h2>
+
+                <p>
+                    A custom web server built with Node.js and Express.
+                    It includes authentication, sessions, API routes,
+                    rate limiting, and protected pages.
+                </p>
+
+                <div class="project-tags">
+                    <span class="project-tag">Node.js</span>
+                    <span class="project-tag">Express</span>
+                    <span class="project-tag">JavaScript</span>
+                </div>
+
+            </article>
+
+
+            <article class="project-card">
+
+                <div class="project-icon">
+                    🔐
+                </div>
+
+                <h2>Authentication System</h2>
+
+                <p>
+                    A login system using sessions and protected routes.
+                    Users can log in, stay authenticated, access private
+                    pages, and securely log out.
+                </p>
+
+                <div class="project-tags">
+                    <span class="project-tag">Sessions</span>
+                    <span class="project-tag">Security</span>
+                    <span class="project-tag">Express</span>
+                </div>
+
+            </article>
+
+
+            <article class="project-card">
+
+                <div class="project-icon">
+                    💬
+                </div>
+
+                <h2>Guestbook</h2>
+
+                <p>
+                    A protected guestbook that allows authenticated users
+                    to post messages. Entries are stored on the server
+                    and displayed dynamically.
+                </p>
+
+                <div class="project-tags">
+                    <span class="project-tag">API</span>
+                    <span class="project-tag">JSON</span>
+                    <span class="project-tag">Forms</span>
+                </div>
+
+            </article>
+
+
+            <article class="project-card">
+
+                <div class="project-icon">
+                    ⚡
+                </div>
+
+                <h2>Custom Routing</h2>
+
+                <p>
+                    Clean extensionless routes make the website easier
+                    to navigate. Pages such as /projects and /about
+                    are handled directly by the Express server.
+                </p>
+
+                <div class="project-tags">
+                    <span class="project-tag">Routing</span>
+                    <span class="project-tag">Express</span>
+                    <span class="project-tag">Backend</span>
+                </div>
+
+            </article>
+
+
+            <article class="project-card">
+
+                <div class="project-icon">
+                    🛡️
+                </div>
+
+                <h2>Rate Limiting</h2>
+
+                <p>
+                    The server uses request limits to reduce excessive
+                    traffic and help protect the application from
+                    repeated requests.
+                </p>
+
+                <div class="project-tags">
+                    <span class="project-tag">Security</span>
+                    <span class="project-tag">Middleware</span>
+                    <span class="project-tag">Protection</span>
+                </div>
+
+            </article>
+
+
+            <article class="project-card">
+
+                <div class="project-icon">
+                    📊
+                </div>
+
+                <h2>Server Statistics</h2>
+
+                <p>
+                    The server tracks information such as visitor counts
+                    and exposes statistics through an API endpoint that
+                    can be used by the frontend.
+                </p>
+
+                <div class="project-tags">
+                    <span class="project-tag">API</span>
+                    <span class="project-tag">Statistics</span>
+                    <span class="project-tag">JavaScript</span>
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+    ```
+
 </body>
 
 </html>
