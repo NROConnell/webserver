@@ -31,6 +31,10 @@ const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const LOG_FILE = path.join(__dirname, 'server.log');
 
+const apodCache = new Map();
+const TODAY_MAX_AGE = 60 * 60 * 1000; // 1 hour in milliseconds
+const MAX_CACHE_SIZE = 100;
+
 let visitorCount = 0;
 let MAINTENANCE_MODE = false;
 
@@ -115,7 +119,12 @@ const limiter = rateLimit({
     message: '<h1>429 Too Many Requests</h1><p>Please wait 10 seconds.</p>'
 });
 app.use(limiter);
-
+// Stricter limit just for the NASA route
+const spaceLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    limit: 10,           // 10 lookups per minute, per visitor
+    message: { error: 'Too many space lookups. Please wait a minute.' }
+});
 app.use((req, res, next) => {
     if (MAINTENANCE_MODE) return res.statusMessage(503).send('...Maintence Mode');
     next();
@@ -249,10 +258,18 @@ app.post('/api/guestbook', requireAuth, (req, res) => {
     fs.writeFileSync(GUESTBOOK_FILE, JSON.stringify(messages.slice(-50), null, 2));
     res.json({ success: true });
 });
-app.get('/api/space', async (req, res) => {
+app.get('/api/space', spaceLimiter, async (req, res) => {
     console.log('NASA API request from', req.ip, 'with query', req.query);
     const { date } = req.query;
 
+    const cacheKey = date || 'today';
+    const cached = apodCache.get(cacheKey);
+    const isFresh = cacheKey !== 'today' || Date.now() - cached?.savedAt < TODAY_MAX_AGE;
+
+    if (cached && isFresh) {
+        console.log('Cache hit:', cacheKey);
+        return res.json(cached.data);
+    }
     // Validation goes here in Part 4
     const dateError = validateApodDate(date);
     if (dateError) {
@@ -296,16 +313,6 @@ app.get('/api/space', async (req, res) => {
     // With a date, NASA sends one picture. Without one, it sends a list,
     // and the first item is the newest.
     const picture = Array.isArray(data) ? data[0] : data;
-
-    // Send back only what our page needs, with names we chose
-    res.json({
-        title: picture.title,
-        date: picture.date,
-        imageUrl: picture.hdurl,
-        description: picture.alt,
-        nasaPage: picture.permalink
-    });
-
     const result = {
         title: picture.title,
         date: picture.date,
